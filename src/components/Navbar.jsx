@@ -29,14 +29,14 @@ const handleLogout = () => {
             toast.success("Berhasil logout", {
               position: "top-right",
               icon: "success",
-              autoClose: 3000,
+              autoClose: 1000,
             });
             localStorage.removeItem("token");
             setTimeout(() => {
               navigate("/");
             }, 1200);
           }}
-          className="text-white px-3 py-1 rounded text-sm flex items-left gap-1"
+          className="text-white px-3 py-1 rounded text-sm items-left mr-3 gap-1"
         >
           ✔️
         </button>

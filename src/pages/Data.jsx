@@ -79,7 +79,7 @@ function Data() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-gray-200 to-white">
       <Navbar />
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-20">
       <div className="flex gap-2 items-center mb-4">
         <button
           className="border-2 border-indigo-600 text-indigo-600 bg-white py-1 px-4 rounded hover:bg-indigo-600 hover:text-white"
@@ -95,7 +95,7 @@ function Data() {
             if (
               window.confirm("Apakah anda yakin akan mendownload semua data?")
             ) {
-              window.location.href = `/downloadall?source=${source}`;
+              window.location.href = `${API_BASE}/downloadall?source=${source}`;
             }
           }}
         >

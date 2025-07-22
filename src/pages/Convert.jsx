@@ -21,6 +21,8 @@ const Convert = () => {
   const [modalContent, setModalContent] = useState("");
   const [modalTitle, setModalTitle] = useState("");
   const textAreaRef = useRef(null);
+  const [hovering, setHovering] = useState(false);
+
 
 const uploadFileInChunks = async (file) => {
   const chunkSize = 16 * 1024; // 1MB
@@ -380,22 +382,60 @@ const uploadFileInChunks = async (file) => {
 
           {/* Dropzone */}
           <div
-            {...getRootProps()}
-            className={`dropzone border-2 border-dashed border-gray-400 rounded cursor-pointer p-8 text-center relative z-10 ${
-              isDragActive ? "border-indigo-600 bg-indigo-100" : "bg-white"
-            }`}
-          >
-            <input {...getInputProps()} />
-            <div>
-              <i className="bi bi-file-earmark-arrow-up fs-3x text-primary"></i>
-            </div>
-            <p className="mt-3 text-gray-900 font-semibold">
-              Drop files here or click to upload.
-            </p>
-            <p className="text-gray-500 mt-1">
-              File anda akan otomatis di convert
-            </p>
-          </div>
+         {...getRootProps()}
+      onMouseEnter={() => setHovering(true)}
+      onMouseLeave={() => setHovering(false)}
+      className={`relative dropzone border-2 border-dashed rounded-md p-8 text-center transition-all duration-300 ${
+        isDragActive ? 'border-blue-500 bg-blue-50' : 'border-gray-400 bg-white'
+      }`}
+      style={{ cursor: 'pointer', overflow: 'hidden' }}
+    >
+      <input {...getInputProps()} />
+
+      {/* ICON - Muncul dari tengah */}
+      <div
+        style={{
+          opacity: hovering ? 1 : 0,
+          transform: hovering ? 'scale(1)' : 'scale(0)',
+          transition: 'all 0.3s ease',
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          pointerEvents: 'none',
+        }}
+      >
+        <i className="bi bi-cloud-arrow-up-fill position-absolute" style={{ fontSize: '3rem' }}></i>
+      </div>
+
+      {/* TEXT - Atas (slide kiri) */}
+      <p
+        style={{
+          transform: hovering ? 'translateX(-100%)' : 'translateX(0)',
+          opacity: hovering ? 0 : 1,
+          transition: 'all 0.3s ease',
+          fontWeight: '600',
+          color: '#111827',
+          marginTop: '12px',
+        }}
+      >
+        Drop files here or click to upload.
+      </p>
+
+      {/* TEXT - Bawah (slide kanan) */}
+      <p
+        style={{
+          transform: hovering ? 'translateX(100%)' : 'translateX(0)',
+          opacity: hovering ? 0 : 1,
+          transition: 'all 0.3s ease',
+          color: '#6b7280',
+          marginTop: '4px',
+        }}
+      >
+        File anda akan otomatis di convert
+      </p>
+    </div>
 
           <p className="text-xs text-gray-500 mt-3">
             Masukan file pdf untuk mendownload data csv yang disimpan di
